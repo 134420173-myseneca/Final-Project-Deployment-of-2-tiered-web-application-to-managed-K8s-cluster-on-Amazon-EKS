@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mysql
+  namespace: sqldb
+  labels:
+    app: mysql
+spec:
+  selector:
+    matchLabels:
+      app: mysql
+  replicas: 3
+  template:
+    metadata:
+      labels:
+        app: mysql
+    spec:
+      containers:
+        - name: mysql-dep-xinyueli
+          image: 558655763449.dkr.ecr.us-east-1.amazonaws.com/clo835-a2:my_db
+          env:
+            - name: MYSQL_ROOT_PASSWORD
+              value: "pw"
+          ports:
+            - containerPort: 3306
