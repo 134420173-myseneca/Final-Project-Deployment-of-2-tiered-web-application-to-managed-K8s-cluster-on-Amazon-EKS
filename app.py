@@ -7,6 +7,7 @@ import boto3
 import logging
 import botocore
 
+
 app = Flask(__name__)
 
 DBHOST = os.environ.get("DBHOST") or "localhost"
@@ -69,13 +70,12 @@ COLOR = random.choice(["red", "green", "blue", "blue2", "darkblue", "pink", "lim
 
 @app.route("/", methods=['GET', 'POST'])
 def home():
-    return render_template('addemp.html', color=color_codes[COLOR])
+   # return render_template('addemp.html', color=color_codes[COLOR])
+  #  print('show me the background image url',BACKGROUND_IMAGE)
+   # image_url = url_for('static', filename='background_image.png')
+    image_url = download("background_image.png") 
+    return render_template('addemp.html', background_image = image_url, group_name = GROUP_NAME)
     
-from flask import render_template
-import boto3
-import logging
-
-from flask import render_template
 
 @app.route("/about", methods=['GET','POST'])
 def about():
@@ -198,9 +198,9 @@ def AddEmp():
 @app.route("/getemp", methods=['GET', 'POST'])
 def GetEmp():
     
-        image_url = url_for('static', filename='background_image.png')
-
-        return render_template("getemp.html", background_image = image_url, color=color_codes[COLOR])
+       # image_url = url_for('static', filename='background_image.png')
+        image_url = download("background_image.png") 
+        return render_template("getemp.html", background_image = image_url, group_name = GROUP_NAME)
 
 
 @app.route("/fetchdata", methods=['GET','POST'])
