@@ -16,8 +16,8 @@ spec:
         app: mysql
     spec:
       containers:
-        - name: mysql-dep-xinyueli
-          image: 558655763449.dkr.ecr.us-east-1.amazonaws.com/clo835-a2:my_db
+        - name: mysql-dep
+          image: 558655763449.dkr.ecr.us-east-1.amazonaws.com/clo835-final:my_db
           env:
             - name: MYSQL_ROOT_PASSWORD
               value: "pw"
