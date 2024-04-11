@@ -29,4 +29,4 @@ spec:
             - name: DBPWD
               value: "pw"
           ports:
-          - containerPort: 81
+          - containerPort: 8081
