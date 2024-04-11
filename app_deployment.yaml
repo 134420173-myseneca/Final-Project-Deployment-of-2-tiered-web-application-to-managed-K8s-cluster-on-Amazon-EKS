@@ -2,12 +2,11 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: app
-  namespace: webapp
+  namespace: final
   labels:
     app: employees
-    version: v1
 spec:
-  replicas: 3
+  replicas: 1
   selector:
     matchLabels:
       app: employees
@@ -17,8 +16,8 @@ spec:
         app: employees
     spec:
       containers:
-        - name: app-dep
-          image: 558655763449.dkr.ecr.us-east-1.amazonaws.com/clo835-a2:my_app
+        - name: app
+          image: my_app
           env:
             - name: DBHOST
               value: "db-svc.sqldb.svc.cluster.local"
@@ -29,4 +28,4 @@ spec:
             - name: DBPWD
               value: "pw"
           ports:
-          - containerPort: 8080
+          - containerPort: 81
