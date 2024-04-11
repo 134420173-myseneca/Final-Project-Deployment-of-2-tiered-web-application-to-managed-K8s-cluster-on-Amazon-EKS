@@ -62,7 +62,7 @@ COLOR = random.choice(["red", "green", "blue", "blue2", "darkblue", "pink", "lim
 #         logging.error(e)
 #         return False
 #     return True
-
+#
 #     list_bucket()
 
 @app.route("/", methods=['GET', 'POST'])
