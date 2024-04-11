@@ -2,7 +2,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: app-svc
-  namespace: webapp
+  namespace: final
   labels:
     app: employees
     version: v1
