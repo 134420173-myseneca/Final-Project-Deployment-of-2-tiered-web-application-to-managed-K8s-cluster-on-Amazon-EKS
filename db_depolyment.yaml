@@ -14,13 +14,21 @@ spec:
       labels:
         app: mysql
     spec:
-      imagePullSecrets:
-        - name: creds-final
       containers:
         - name: mysql-dep  
           image: 558655763449.dkr.ecr.us-east-1.amazonaws.com/clo835-final:my_db
           env:
             - name: MYSQL_ROOT_PASSWORD
-              value: "pw"
+              valueFrom:
+                secretKeyRef:
+                  name: secrets
+                  key: MYSQL_ROOT_PASSWORD
           ports:
             - containerPort: 3306
+          volumeMounts:
+            - name: mysql-pv
+              mountPath: /var/lib/mysql
+      volumes:
+      - name: mysql-pv
+        persistentVolumeClaim:
+          claimName: db-pvc
