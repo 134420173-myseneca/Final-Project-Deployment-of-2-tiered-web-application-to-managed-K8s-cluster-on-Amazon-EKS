@@ -19,16 +19,6 @@ spec:
           image: 558655763449.dkr.ecr.us-east-1.amazonaws.com/clo835-a2:my_db
           env:
             - name: MYSQL_ROOT_PASSWORD
-              valueFrom:
-                secretKeyRef:
-                  name: secrets
-                  key: final_cred
+              value: "pw"
           ports:
             - containerPort: 3306
-          volumeMounts:
-            - name: mysql-pvc
-              mountPath: /var/lib/mysql
-      volumes:
-        - name: mysql-pvc
-          persistentVolumeClaim:
-            claimName: db-pvc  
