@@ -5,3 +5,8 @@ metadata:
   namespace: final
 spec:
   accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 2Gi
+  storageClassName: gp2
