@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
         - name: mysql-dep
-          image: 558655763449.dkr.ecr.us-east-1.amazonaws.com/clo835-final:my_db
+          image: 558655763449.dkr.ecr.us-east-1.amazonaws.com/clo835-a2:my_db
           env:
             - name: MYSQL_ROOT_PASSWORD
               valueFrom:
