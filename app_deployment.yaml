@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
         - name: app
-          image: my_app
+          image: 558655763449.dkr.ecr.us-east-1.amazonaws.com/clo835-final:my_app
           env:
             - name: DBHOST
               value: "db-svc.sqldb.svc.cluster.local"
