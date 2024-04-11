@@ -2,12 +2,10 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: app
-  namespace: webapp
+  namespace: final
   labels:
     app: employees
-    version: v2
 spec:
-  replicas: 3
   selector:
     matchLabels:
       app: employees
