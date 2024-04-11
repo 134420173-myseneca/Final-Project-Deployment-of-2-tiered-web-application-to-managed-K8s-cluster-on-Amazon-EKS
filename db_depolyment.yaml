@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: mysql
-          image: 558655763449.dkr.ecr.us-east-1.amazonaws.com/clo835-final:db
+          image: my_db
           env:
             - name: MYSQL_ROOT_PASSWORD
               value: "pw"
