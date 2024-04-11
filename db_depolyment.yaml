@@ -9,7 +9,6 @@ spec:
   selector:
     matchLabels:
       app: mysql
-
   template:
     metadata:
       labels:
@@ -27,9 +26,9 @@ spec:
           ports:
             - containerPort: 3306
           volumeMounts:
-            - name: mysql-db
+            - name: mysql-pvc
               mountPath: /var/lib/mysql
       volumes:
-        - name: mysql-db
+        - name: mysql-pvc
           persistentVolumeClaim:
             claimName: db-pvc  
