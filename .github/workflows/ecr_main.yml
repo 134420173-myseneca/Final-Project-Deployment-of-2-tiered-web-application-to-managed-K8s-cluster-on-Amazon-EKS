@@ -2,7 +2,7 @@ name: Deploy to ECR
 
 on: 
   push:
-    branches: [ rabia-dev ]
+    branches: [ rabia_dev ]
 
 jobs:
 
