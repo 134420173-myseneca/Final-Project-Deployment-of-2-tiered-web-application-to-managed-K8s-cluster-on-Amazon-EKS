@@ -6,7 +6,6 @@ metadata:
   labels:
     app: employees
 spec:
-  replicas: 1
   selector:
     matchLabels:
       app: employees
