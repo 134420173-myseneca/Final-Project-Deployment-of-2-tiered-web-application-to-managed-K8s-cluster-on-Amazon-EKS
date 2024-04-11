@@ -14,9 +14,11 @@ spec:
       labels:
         app: mysql
     spec:
+      imagePullSecrets:
+        - name: creds-final
       containers:
         - name: mysql
-          image: my_db
+          image: http://558655763449.dkr.ecr.us-east-1.amazonaws.com/clo835-final:my_db
           env:
             - name: MYSQL_ROOT_PASSWORD
               value: "pw"
