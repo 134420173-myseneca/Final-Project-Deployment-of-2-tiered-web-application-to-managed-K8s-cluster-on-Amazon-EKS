@@ -2,7 +2,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: db-svc
-  namespace: sqldb
+  namespace: final
 spec:
   selector:
     app: mysql
