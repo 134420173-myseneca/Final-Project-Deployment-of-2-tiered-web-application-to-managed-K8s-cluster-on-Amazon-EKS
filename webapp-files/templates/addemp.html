@@ -2,12 +2,25 @@
 <html>
 <head>
 	<title>Add Employee Information {{group_name}}</title>
+	    <style>
+        body {
+            background-image: url("{{ background_image }}");
+            background-size: cover;
+            /* Other background properties */
+        }
+        .container {
+            color: #e4e4e4;
+            text-align: center;
+            height: 90px;
+            vertical-align: middle;
+        }
+    </style>
 </head>
 <center>
 	<font color="black" size="4" style="font-family: avenir">
 
 		<h1 style="color: DodgerBlue">Employee Database</h1>
-		<body style="background-image: url('{{ background_image }}');" >
+<!--		<body style="background-image: url('{{ background_image }}');" >      -->
 
 			<form action="/addemp" autocomplete="on" method = "POST" enctype="multipart/form-data">
 
