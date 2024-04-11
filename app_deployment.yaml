@@ -14,12 +14,14 @@ spec:
       labels:
         app: employees
     spec:
+      imagePullSecrets:
+        - name: creds-final
       containers:
         - name: app-dep
-          image: 558655763449.dkr.ecr.us-east-1.amazonaws.com/clo835-a2:my_appv2
+          image: 558655763449.dkr.ecr.us-east-1.amazonaws.com/clo835-final:my_app
           env:
             - name: DBHOST
-              value: "db-svc.sqldb.svc.cluster.local"
+              value: "db-svc.final.svc.cluster.local"
             - name: DBPORT
               value: "3306"
             - name: DBUSER
@@ -27,4 +29,4 @@ spec:
             - name: DBPWD
               value: "pw"
           ports:
-          - containerPort: 8080
+          - containerPort: 81
