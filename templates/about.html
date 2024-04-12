@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Hello from Flask</title>
+    <title>Hello from {{group_name}}</title>
     <style>
         body {
             background-image: url("{{ background_image }}");
@@ -19,9 +19,9 @@
 <body>
     <div class="container">
         {% if name %}
-            <h1>Hello from {{ name }}!</h1>
+            <h1>Hello from {{ group_name }}!</h1>
         {% else %}
-            <h1>Hello From CLO835!</h1>
+            <h1>Hello from {{ group_name }}</h1>
         {% endif %}
 
         {% if contents %}
