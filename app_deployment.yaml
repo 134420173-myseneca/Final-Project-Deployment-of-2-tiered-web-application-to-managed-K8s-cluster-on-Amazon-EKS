@@ -22,10 +22,7 @@ spec:
           image: 558655763449.dkr.ecr.us-east-1.amazonaws.com/clo835-final:my_app
           env:
             - name: DBHOST
-              valueFrom:
-                secretKeyRef:
-                  name: secrets
-                  key: DBHOST
+              value: "db-svc.final.svc.cluster.local"
             - name: DBPORT
               value: "3306"
             - name: DBUSER
@@ -34,7 +31,7 @@ spec:
                   name: secrets
                   key: DBUSER   
             - name: DBPWD
-             valueFrom:
+              valueFrom:
                 secretKeyRef:
                   name: secrets
                   key: MYSQL_ROOT_PASSWORD
