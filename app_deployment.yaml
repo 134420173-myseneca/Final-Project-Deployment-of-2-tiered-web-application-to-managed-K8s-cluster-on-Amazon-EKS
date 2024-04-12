@@ -16,6 +16,7 @@ spec:
     spec:
       imagePullSecrets:
         - name: creds-final
+      serviceAccountName: clo835
       containers:
         - name: app-dep
           image: 558655763449.dkr.ecr.us-east-1.amazonaws.com/clo835-final:my_app
