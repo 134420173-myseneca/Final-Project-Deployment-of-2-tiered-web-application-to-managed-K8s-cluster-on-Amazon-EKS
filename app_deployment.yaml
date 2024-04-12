@@ -22,12 +22,21 @@ spec:
           image: 558655763449.dkr.ecr.us-east-1.amazonaws.com/clo835-final:my_app
           env:
             - name: DBHOST
-              value: "db-svc.final.svc.cluster.local"
+              valueFrom:
+                secretKeyRef:
+                  name: secrets
+                  key: DBHOST
             - name: DBPORT
               value: "3306"
             - name: DBUSER
-              value: "root"
+              valueFrom:
+                secretKeyRef:
+                  name: secrets
+                  key: DBUSER   
             - name: DBPWD
-              value: "pw"
+             valueFrom:
+                secretKeyRef:
+                  name: secrets
+                  key: MYSQL_ROOT_PASSWORD
           ports:
           - containerPort: 8081
