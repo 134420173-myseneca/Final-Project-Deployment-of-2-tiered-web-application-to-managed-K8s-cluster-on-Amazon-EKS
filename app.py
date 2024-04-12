@@ -7,7 +7,6 @@
 # import logging
 # import botocore
 
-
 # app = Flask(__name__)
 
 # DBHOST = os.environ.get("DBHOST") or "localhost"
