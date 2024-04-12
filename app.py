@@ -10,17 +10,17 @@ app = Flask(__name__)
 
 DBHOST = os.environ.get("DBHOST", "localhost")
 DBUSER = os.environ.get("DBUSER", "root")
-DBPWD = os.environ.get("DBPWD", "password")  # Consider securing your database password
+DBPWD = os.environ.get("DBPWD", "password") 
 DATABASE = os.environ.get("DATABASE", "employees")
 COLOR_FROM_ENV = os.environ.get('APP_COLOR', "lime")
 DBPORT = int(os.environ.get("DBPORT", 3306))
-BACKGROUND_IMAGE = os.environ.get("BACKGROUND_IMAGE", "Invalid Image been passed")
+BACKGROUND_IMAGE = os.environ.get("BACKGROUND_IMAGE", "Invalid")
 GROUP_NAME = os.environ.get('GROUP_NAME', "GROUP4")
 
 # AWS S3 Credentials
 AWS_ACCESS_KEY_ID = os.getenv("AWS_ACCESS_KEY_ID")
 AWS_SECRET_ACCESS_KEY = os.getenv("AWS_SECRET_ACCESS_KEY")
-AWS_SESSION_TOKEN = os.getenv("AWS_SESSION_TOKEN", None)  # This is optional and used for temporary credentials
+AWS_SESSION_TOKEN = os.getenv("AWS_SESSION_TOKEN", None)  
 
 # Define the supported color codes
 color_codes = {
