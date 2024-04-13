@@ -4,6 +4,7 @@ metadata:
   name: db-svc
   namespace: final
 spec:
+  type: ClusterIP
   selector:
     app: mysql
   ports:
