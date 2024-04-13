@@ -11,7 +11,7 @@ from botocore.exceptions import NoCredentialsError, ClientError
 
 app = Flask(__name__)
 
-
+DBPORT = int(os.environ.get("DBPORT")) or "3306"
 DBHOST = os.environ.get("DBHOST") or "localhost"
 DBUSER = os.environ.get("DBUSER") or "root"
 DBPWD = os.environ.get("DBPWD") or "passwors"
