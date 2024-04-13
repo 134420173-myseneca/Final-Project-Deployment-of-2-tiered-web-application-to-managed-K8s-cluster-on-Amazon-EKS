@@ -4,9 +4,9 @@ import os
 import random
 import argparse
 import boto3
-import botocore
+from botocore.exceptions import NoCredentialsError, ClientError
 import logging
-import botocore
+
 
 app = Flask(__name__)
 
@@ -19,17 +19,17 @@ BACKGROUND_IMAGE = os.environ.get("BACKGROUND_IMAGE") or "Invalid Image been pas
 GROUP_NAME = os.environ.get('GROUP_NAME') or "GROUP9"
 DBPORT = int(os.environ.get("DBPORT"))
 
-#Create a connection to the MySQL database
+# Create a connection to the MySQL database
 db_conn = connections.Connection(
-    host=DBHOST,
+    host= DBHOST,
     port=DBPORT,
-    user=DBUSER,
-    password=DBPWD,
-    db=DATABASE
+    user= DBUSER,
+    password= DBPWD, 
+    db= DATABASE
+    
 )
-
 output = {}
-table = 'employee'
+table = 'employee';
 
 # Define the supported color codes
 color_codes = {
@@ -42,80 +42,60 @@ color_codes = {
     "lime": "#C1FF9C",
 }
 
+
 # Create a string of supported colors
 SUPPORTED_COLORS = ",".join(color_codes.keys())
 
 # Generate a random color
 COLOR = random.choice(["red", "green", "blue", "blue2", "darkblue", "pink", "lime"])
 
-# Read the list of existing buckets
-# def list_bucket():
-#     # Create bucket
-#     try:
-#         s3 = boto3.client('s3')
-#         response = s3.list_buckets()
-#         if response:
-#             print('Buckets exists..')
-#             for bucket in response['Buckets']:
-#                 print(f'  {bucket["Name"]}')
-#     except Exception as e:
-#         logging.error(e)
-#         return False
-#     return True
-#
-#     list_bucket()
+AWS_ACCESS_KEY_ID = os.environ.get("AWS_ACCESS_KEY_ID")
+AWS_SECRET_ACCESS_KEY = os.environ.get("AWS_SECRET_ACCESS_KEY")
+AWS_S3_BUCKET = os.environ.get("AWS_S3_BUCKET")
+BACKGROUND_IMAGE_KEY = os.environ.get("BACKGROUND_IMAGE_KEY")
+
 
 @app.route("/", methods=['GET', 'POST'])
 def home():
-    # return render_template('addemp.html', color=color_codes[COLOR])
-    #  print('show me the background image url',BACKGROUND_IMAGE)
-    # image_url = url_for('static', filename='background_image.png')
-    image_url = download("background_image.png")
-    return render_template('addemp.html', background_image=image_url, group_name=GROUP_NAME)
+    background_image_url = download_background_image()
+    return render_template('addemp.html', background_image=background_image_url, color=color_codes[COLOR])
+
+def download_background_image():
+    """Download the background image from the S3 bucket and return the local URL."""
+    # Check if all required environment variables are set
+    if not all([AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY, AWS_S3_BUCKET, BACKGROUND_IMAGE_KEY]):
+        print("Required AWS environment variables are not set.")
+        return url_for('static', filename='default_background.png')  # You should have a default image
+    s3_client = boto3.client(
+        's3',
+        aws_access_key_id=AWS_ACCESS_KEY_ID,
+        aws_secret_access_key=AWS_SECRET_ACCESS_KEY
+        # Session token is not needed unless you are using temporary credentials
+    )
+    local_filename = 'static/background_image.png'
+    try:
+        s3_client.download_file(AWS_S3_BUCKET, BACKGROUND_IMAGE_KEY, local_filename)
+        print("Background image downloaded successfully from S3.")
+    except NoCredentialsError:
+        print("Credentials not available for downloading the background image.")
+        return url_for('static', filename='default_background.png')  # Fallback to a default image
+    except ClientError as e:
+        if e.response['Error']['Code'] == '404':
+            print("The background image does not exist in the bucket.")
+        else:
+            print(f"Client error occurred: {e}")
+        return url_for('static', filename='default_background.png')  # Fallback to a default image
+    except Exception as e:
+        print(f"Error downloading background image: {e}")
+        return url_for('static', filename='default_background.png')  # Fallback to a default image
+
+    return url_for('static', filename='background_image.png')
 
 
-@app.route("/about", methods=['GET', 'POST'])
+@app.route("/about", methods=['GET','POST'])
 def about():
-    try:
-        s3 = boto3.client('s3')
-        response = s3.list_buckets()
-        if response:
-            buckets = [bucket["Name"] for bucket in response['Buckets']]
-            print('Buckets exist..')
-            for bucket in buckets:
-                print(f'  {bucket}')
-    except Exception as e:
-        logging.error(e)
-        return render_template('error.html', error_message="Error occurred while fetching buckets")  # Return an error template or handle the error appropriately
-
-    # Call the download function to get the image URL
-    image_url = download("background_image.png")  # Replace "background_image.png" with the actual file name in S3
-
-    # Assuming you have defined color_codes and COLOR somewhere in your code
-    color = color_codes[COLOR]
-
-    return render_template('about.html', buckets=buckets, color=color, background_image=image_url)
-
-
-# Define the download function to get the S3 URL of the image
-def download(object_name):
-    try:
-        s3 = boto3.client('s3')
-        bucket_name = 'clo835-group9'  # Replace 'your_bucket_name' with the actual bucket name
-        # https://clo835-group9.s3.amazonaws.com/background_image.png
-        image_url = f"https://{bucket_name}.s3.amazonaws.com/{object_name}"
-        # prints the bucket name which is clo835-group9
-        print(bucket_name)
-        # prints the image name which is background_image.png
-        print(bucket_name)
-        print(object_name)
-        print("Background Image Location ---> " + image_url)  # Added for Logging of Background Image Path
-        return image_url
-    except Exception as e:
-        logging.error(e)
-        return None
-
-
+    return render_template('about.html', color=color_codes[COLOR])
+    
 @app.route("/addemp", methods=['POST'])
 def AddEmp():
     emp_id = request.form['emp_id']
@@ -124,12 +104,13 @@ def AddEmp():
     primary_skill = request.form['primary_skill']
     location = request.form['location']
 
+  
     insert_sql = "INSERT INTO employee VALUES (%s, %s, %s, %s, %s)"
     cursor = db_conn.cursor()
 
     try:
-
-        cursor.execute(insert_sql, (emp_id, first_name, last_name, primary_skill, location))
+        
+        cursor.execute(insert_sql,(emp_id, first_name, last_name, primary_skill, location))
         db_conn.commit()
         emp_name = "" + first_name + " " + last_name
 
@@ -137,19 +118,14 @@ def AddEmp():
         cursor.close()
 
     print("all modification done...")
-
-    image_url = download("background_image.png")
-    return render_template('addempoutput.html', background_image=image_url, name=emp_name)
-
+    return render_template('addempoutput.html', name=emp_name, color=color_codes[COLOR])
 
 @app.route("/getemp", methods=['GET', 'POST'])
 def GetEmp():
-    # image_url = url_for('static', filename='background_image.png')
-    image_url = download("background_image.png")
-    return render_template("getemp.html", background_image=image_url, group_name=GROUP_NAME)
+    return render_template("getemp.html", color=color_codes[COLOR])
 
 
-@app.route("/fetchdata", methods=['GET', 'POST'])
+@app.route("/fetchdata", methods=['GET','POST'])
 def FetchData():
     emp_id = request.form['emp_id']
 
@@ -158,16 +134,16 @@ def FetchData():
     cursor = db_conn.cursor()
 
     try:
-        cursor.execute(select_sql, (emp_id))
+        cursor.execute(select_sql,(emp_id))
         result = cursor.fetchone()
-
+        
         # Add No Employee found form
         output["emp_id"] = result[0]
         output["first_name"] = result[1]
         output["last_name"] = result[2]
         output["primary_skills"] = result[3]
         output["location"] = result[4]
-
+        
     except Exception as e:
         print(e)
 
@@ -177,9 +153,7 @@ def FetchData():
     return render_template("getempoutput.html", id=output["emp_id"], fname=output["first_name"],
                            lname=output["last_name"], interest=output["primary_skills"], location=output["location"], color=color_codes[COLOR])
 
-
 if __name__ == '__main__':
-    download(BACKGROUND_IMAGE)
     
     # Check for Command Line Parameters for color
     parser = argparse.ArgumentParser()
@@ -202,5 +176,4 @@ if __name__ == '__main__':
         print("Color not supported. Received '" + COLOR + "' expected one of " + SUPPORTED_COLORS)
         exit(1)
 
-    app.run(host='0.0.0.0', port=8081, debug=True)
-
+    app.run(host='0.0.0.0',port=81,debug=True)
