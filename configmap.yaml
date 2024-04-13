@@ -5,4 +5,4 @@ metadata:
   namespace: final
 data:
   GROUP_NAME: "clo835-group9"
-  image_file_name: "https://clo835-group9.s3.amazonaws.com/background_image.png"
+  IMAGE_URL: "https://clo835-final.s3.amazonaws.com/background_image.png"
