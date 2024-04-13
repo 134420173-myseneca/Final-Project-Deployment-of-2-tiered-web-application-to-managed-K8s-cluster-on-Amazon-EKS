@@ -16,17 +16,28 @@ spec:
     spec:
       imagePullSecrets:
         - name: creds-final
+      serviceAccountName: clo835
       containers:
-        - name: app
-          image: 558655763449.dkr.ecr.us-east-1.amazonaws.com/clo835-final:my_app
+        - name: app-dep
+          image: 877646386798.dkr.ecr.us-east-1.amazonaws.com/clo835-final:my_app
           env:
             - name: DBHOST
-              value: "db-svc.sqldb.svc.cluster.local"
+              value: "db-svc.final.svc.cluster.local"
             - name: DBPORT
               value: "3306"
             - name: DBUSER
-              value: "root"
+              valueFrom:
+                secretKeyRef:
+                  name: secrets
+                  key: DBUSER   
             - name: DBPWD
-              value: "pw"
+              valueFrom:
+                secretKeyRef:
+                  name: secrets
+                  key: MYSQL_ROOT_PASSWORD
+                  
+          envFrom:
+            - configMapRef:
+                name: app
           ports:
-          - containerPort: 8081
+            - containerPort: 81
