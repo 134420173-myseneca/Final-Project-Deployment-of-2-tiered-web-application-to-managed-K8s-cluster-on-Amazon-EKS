@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Hello from {{group_name}}</title>
+    <title>Hello from Flask</title>
     <style>
         body {
             background-image: url("{{ background_image }}");
@@ -21,7 +21,7 @@
         {% if name %}
             <h1>Hello from {{ group_name }}!</h1>
         {% else %}
-            <h1>Hello from {{ group_name }}</h1>
+            <h1>Hello From CLO835!</h1>
         {% endif %}
 
         {% if contents %}
@@ -31,9 +31,19 @@
         <h1>List of Buckets</h1>
         <ul>
             {% for bucket in buckets %}
-                <li>{{ bucket }}</li>
+                <li style="color: white; font-size: 1.2em;">{{ bucket }}</li>
             {% endfor %}
         </ul>
+        <div>
+<div>
+    <p style="color: white; font-size: 1.2em; font-style: italic;">
+        Our team is a diverse group of individuals united by a common goal: to achieve excellence in everything we do. <br>
+        With a blend of unique talents, backgrounds, and perspectives, we collaborate seamlessly to overcome challenges <br>
+        and deliver innovative solutions. Committed to continuous learning and growth, we support each other, celebrate <br>
+        our successes, and learn from our failures. Together, we embody the spirit of teamwork, resilience, and determination.<br>
+    </p>
+</div>
+
     </div>
 </body>
 </html>
