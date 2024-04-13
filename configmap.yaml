@@ -4,6 +4,5 @@ metadata:
   name: app
   namespace: final
 data:
-  group: "clo835-group9"
-  bucket: "https://clo835-group9.s3.amazonaws.com/background_image.png"
-  # https://clo835-group9.s3.amazonaws.com/background_image.png
+  GROUP_NAME: "clo835-group9"
+  image_file_name: "https://clo835-group9.s3.amazonaws.com/background_image.png"
