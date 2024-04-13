@@ -24,6 +24,16 @@ AWS_ACCESS_KEY_ID = os.getenv("AWS_ACCESS_KEY_ID")
 AWS_SECRET_ACCESS_KEY = os.getenv("AWS_SECRET_ACCESS_KEY")
 AWS_SESSION_TOKEN = os.getenv("AWS_SESSION_TOKEN", None)
 
+#Create a connection to the MySQL database
+
+db_conn = connections.Connection(
+    host= DBHOST,
+    port=DBPORT,
+    user= DBUSER,
+    password= DBPWD, 
+    db= DATABASE
+    
+)
 
 output = {}
 table = 'employee'
@@ -90,6 +100,7 @@ def home():
         print(f"An error occurred while rendering the homepage: {e}")
         return "Error: Failed to render homepage."
 
+
 @app.route("/about", methods=['GET','POST'])
 def about():
     try:
@@ -106,9 +117,67 @@ def about():
         return render_template('error.html', error_message="Error occurred while fetching buckets")  # Return an error template or handle the error appropriately
 
     return render_template('about.html', buckets=buckets, background_image=image_file_path, group_name=group_name)
+    
+@app.route("/addemp", methods=['POST'])
+def AddEmp():
+    emp_id = request.form['emp_id']
+    first_name = request.form['first_name']
+    last_name = request.form['last_name']
+    primary_skill = request.form['primary_skill']
+    location = request.form['location']
+    
+    insert_sql = "INSERT INTO employee VALUES (%s, %s, %s, %s, %s)"
+    cursor = db_conn.cursor()
+
+    try:
+        cursor.execute(insert_sql, (emp_id, first_name, last_name, primary_skill, location))
+        db_conn.commit()
+        emp_name = "" + first_name + " " + last_name
+    finally:
+        cursor.close()
+
+    print("all modification done...")
+
+    image_file_path = download_image_route()
+    return render_template('addempoutput.html', background_image=image_file_path, name=emp_name)
+    
+@app.route("/getemp", methods=['GET', 'POST'])
+def GetEmp():
+    image_file_path = download_image_route()
+    return render_template("getemp.html", background_image=image_file_path, group_name=group_name)
+    
+
+@app.route("/fetchdata", methods=['GET', 'POST'])
+def FetchData():
+    emp_id = request.form['emp_id']
+
+    output = {}
+    select_sql = "SELECT emp_id, first_name, last_name, primary_skill, location from employee where emp_id=%s"
+    cursor = db_conn.cursor()
+
+    try:
+        cursor.execute(select_sql, (emp_id))
+        result = cursor.fetchone()
+
+        output["emp_id"] = result[0]
+        output["first_name"] = result[1]
+        output["last_name"] = result[2]
+        output["primary_skills"] = result[3]
+        output["location"] = result[4]
+
+    except Exception as e:
+        print(e)
+    finally:
+        cursor.close()
+    image_file_path = download_image_route()
+    return render_template("getempoutput.html", id=output["emp_id"], fname=output["first_name"],
+                          lname=output["last_name"], interest=output["primary_skills"],
+                          location=output["location"], background_image=image_file_path)
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=8080, debug=True)
+    app.run(host='0.0.0.0', port=81, debug=True)
+
+
 
 
 # from flask import Flask, render_template, request, url_for
