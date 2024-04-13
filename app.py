@@ -21,6 +21,7 @@ image_file_name = os.environ.get("image_file_name") or "background_image.jpg"
 bucket_name = os.environ.get("BUCKET_NAME") or "clo835-group9"
 group_name = os.environ.get("GROUP_NAME") or "Group9"
 group_slogan = os.environ.get("GROUP_SLOGAN") or "Anything can happen with a good team"
+image_url = os.environ.get("IMAGE_URL") or "https://clo835-final.s3.amazonaws.com/background_image.jpg"
 AWS_ACCESS_KEY_ID = os.getenv("AWS_ACCESS_KEY_ID")
 AWS_SECRET_ACCESS_KEY = os.getenv("AWS_SECRET_ACCESS_KEY")
 AWS_SESSION_TOKEN = os.getenv("AWS_SESSION_TOKEN", None)
