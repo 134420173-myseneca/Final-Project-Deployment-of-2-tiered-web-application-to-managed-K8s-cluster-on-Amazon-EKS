@@ -35,5 +35,9 @@ spec:
                 secretKeyRef:
                   name: secrets
                   key: MYSQL_ROOT_PASSWORD
+                  
+          envFrom:
+            - configMapRef:
+                name: app
           ports:
-          - containerPort: 8081
+            - containerPort: 8081
