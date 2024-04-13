@@ -54,7 +54,7 @@ SUPPORTED_COLORS = ",".join(color_codes.keys())
 # function to get image from private s3 bucket and dowwnlaod locally
 def download_background_image(bucket_name, image_file_name):
     try:
-        # Create 'static' directory if it doesn't exist
+        # Create 'static' 
         if not os.path.exists('static'):
             os.makedirs('static')
 
