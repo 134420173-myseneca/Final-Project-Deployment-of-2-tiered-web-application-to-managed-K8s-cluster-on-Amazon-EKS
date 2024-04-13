@@ -4,5 +4,5 @@ metadata:
   name: app
   namespace: final
 data:
-  group_name: "clo835-group9"
-  background_image: "https://clo835-group9.s3.amazonaws.com/background_image.png"
+  GROUP_NAME: "clo835-group9"
+  BACKGROUND_IMAGE: "https://clo835-group9.s3.amazonaws.com/background_image.png"
