@@ -90,7 +90,22 @@ def home():
         print(f"An error occurred while rendering the homepage: {e}")
         return "Error: Failed to render homepage."
 
+@app.route("/about", methods=['GET','POST'])
+def about():
+    try:
+        image_file_path = download_image_route()
+        s3 = boto3.client('s3')
+        response = s3.list_buckets()
+        if response:
+            buckets = [bucket["Name"] for bucket in response['Buckets']]
+            print('Buckets exist..')
+            for bucket in buckets:
+                print(f'  {bucket}')
+    except Exception as e:
+        logging.error(e)
+        return render_template('error.html', error_message="Error occurred while fetching buckets")  # Return an error template or handle the error appropriately
 
+    return render_template('about.html', buckets=buckets, background_image=image_file_path, group_name=group_name)
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=8080, debug=True)
