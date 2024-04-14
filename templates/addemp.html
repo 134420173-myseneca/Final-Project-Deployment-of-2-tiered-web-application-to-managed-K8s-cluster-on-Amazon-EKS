@@ -20,14 +20,16 @@
     </style>
     
         <div class="container">
-        <h1>{{ group_name }}</h1>
-        <p style="color: white; font-size: 1.2em; font-style: italic;">{{ group_slogan }}</p>
+        <h1>Welcome to {{ group_name }} webpage</h1>
+        <p style="color: white; font-size: 1.2em; font-style: italic;">Group Slogan: {{ group_slogan }}</p>
+        <p>Background Image URL: <a href="{{ image_url }}">{{ image_url }}</a></p>
+        
     </div>
 
 </head>
 <center>
 	<font color="black" size="4" style="font-family: avenir">
-
+<br>
 		<h1 style="color: white; font-size: 1.3em; font-style: italic;">Employee Database</h1>
 
 
@@ -53,5 +55,6 @@
             <a href="/about">About Us</a>
 </body>
 </html>
+
 
 
