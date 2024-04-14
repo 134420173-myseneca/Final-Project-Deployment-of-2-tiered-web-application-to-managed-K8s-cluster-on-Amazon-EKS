@@ -31,7 +31,7 @@ AWS_SECRET_ACCESS_KEY = os.getenv("AWS_SECRET_ACCESS_KEY")
 AWS_SESSION_TOKEN = os.getenv("AWS_SESSION_TOKEN", None)
 
 
-#Create a connection to the MySQL database
+#Create a connection to the 
 
 db_conn = connections.Connection(
     host= DBHOST,
