@@ -1,4 +1,3 @@
-
 from flask import Flask, render_template, request, url_for
 from pymysql import connections
 import os
@@ -11,7 +10,8 @@ from botocore.exceptions import NoCredentialsError, ClientError
 
 app = Flask(__name__)
 
-DBPORT = int(os.environ.get("DBPORT")) or "3306"
+DBPORT_str = os.environ.get("DBPORT")
+DBPORT = int(DBPORT_str) if DBPORT_str else 3306
 DBHOST = os.environ.get("DBHOST") or "localhost"
 DBUSER = os.environ.get("DBUSER") or "root"
 DBPWD = os.environ.get("DBPWD") or "passwors"
@@ -21,9 +21,11 @@ image_file_name = os.environ.get("image_file_name") or "background_image.jpg"
 bucket_name = os.environ.get("BUCKET_NAME") or "clo835-group9"
 group_name = os.environ.get("GROUP_NAME") or "Group9"
 group_slogan = os.environ.get("GROUP_SLOGAN") or "Anything can happen with a good team"
+image_url = os.environ.get("IMAGE_URL") or "https://clo835-group9.s3.amazonaws.com/background_image.jpg"
 AWS_ACCESS_KEY_ID = os.getenv("AWS_ACCESS_KEY_ID")
 AWS_SECRET_ACCESS_KEY = os.getenv("AWS_SECRET_ACCESS_KEY")
 AWS_SESSION_TOKEN = os.getenv("AWS_SESSION_TOKEN", None)
+
 
 #Create a connection to the MySQL database
 
@@ -54,7 +56,7 @@ SUPPORTED_COLORS = ",".join(color_codes.keys())
 # function to get image from private s3 bucket and dowwnlaod locally
 def download_background_image(bucket_name, image_file_name):
     try:
-        # Create 'static' 
+        # Create 'static' directory if it doesn't exist
         if not os.path.exists('static'):
             os.makedirs('static')
 
@@ -67,7 +69,7 @@ def download_background_image(bucket_name, image_file_name):
 
         # Get the list of objects in the bucket
         response = s3_client.list_objects_v2(Bucket=bucket_name)
-
+        
         # Search for the image file in the bucket
         object_key = None
         for obj in response.get('Contents', []):
@@ -79,6 +81,15 @@ def download_background_image(bucket_name, image_file_name):
             local_filename = os.path.join("static", "background_image.png")
             s3_client.download_file(bucket_name, object_key, local_filename)
             print("Background image downloaded successfully from S3.")
+            # Added logging of background image location
+            bucket = bucket_name
+            object_name = image_file_name
+            logging.basicConfig(level=logging.INFO)
+            image_url = f"https://{bucket}.s3.amazonaws.com/{object_name}"
+            logging.info(" Background Image URL for Group9 for CLO835---> %s", image_url)
+
+           
+            
             return local_filename
         else:
             print("Image file not found in the bucket:", image_file_name)
@@ -96,7 +107,8 @@ def download_image_route():
 def home():
     try:
         image_file_path = download_image_route()
-        return render_template('addemp.html', background_image=image_file_path, group_name=group_name, group_slogan=group_slogan)
+        print(image_file_path)
+        return render_template('addemp.html', background_image=image_file_path, group_name=group_name, group_slogan=group_slogan, image_url=image_url)
     except Exception as e:
         print(f"An error occurred while rendering the homepage: {e}")
         return "Error: Failed to render homepage."
@@ -117,7 +129,7 @@ def about():
         logging.error(e)
         return render_template('error.html', error_message="Error occurred while fetching buckets")  # Return an error template or handle the error appropriately
 
-    return render_template('about.html', buckets=buckets, background_image=image_file_path, group_name=group_name)
+    return render_template('about.html', buckets=buckets, background_image=image_file_path, group_name=group_name, group_slogan=group_slogan)
     
 @app.route("/addemp", methods=['POST'])
 def AddEmp():
@@ -140,12 +152,12 @@ def AddEmp():
     print("all modification done...")
 
     image_file_path = download_image_route()
-    return render_template('addempoutput.html', background_image=image_file_path, name=emp_name)
+    return render_template('addempoutput.html', background_image=image_file_path, name=emp_name , group_name=group_name, group_slogan=group_slogan, image_url=image_url)
     
 @app.route("/getemp", methods=['GET', 'POST'])
 def GetEmp():
     image_file_path = download_image_route()
-    return render_template("getemp.html", background_image=image_file_path, group_name=group_name)
+    return render_template("getemp.html", background_image=image_file_path, group_name=group_name, group_slogan=group_slogan, image_url=image_url)
     
 
 @app.route("/fetchdata", methods=['GET', 'POST'])
@@ -173,10 +185,10 @@ def FetchData():
     image_file_path = download_image_route()
     return render_template("getempoutput.html", id=output["emp_id"], fname=output["first_name"],
                           lname=output["last_name"], interest=output["primary_skills"],
-                          location=output["location"], background_image=image_file_path)
+                          location=output["location"], background_image=image_file_path,group_name=group_name, group_slogan=group_slogan, image_url=image_url)
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=8081, debug=True)
+    app.run(host='0.0.0.0', port=81, debug=True)
 
 
 
