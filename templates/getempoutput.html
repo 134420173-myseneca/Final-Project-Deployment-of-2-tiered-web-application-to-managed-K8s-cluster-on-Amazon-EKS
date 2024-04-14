@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Employee Information {{group_name}}</title>
+	
+	    <style>
+        body {
+            background-image: url("{{ background_image }}");
+            background-size: cover;
+            /* Other background properties */
+        }
+        .container {
+            color: #e4e4e4;
+            text-align: center;
+            height: 90px;
+            vertical-align: middle;
+        }
+    </style>
+       <div class="container">
+        <h1>Welcome to {{ group_name }} webpage</h1>
+        <p style="color: white; font-size: 1.2em; font-style: italic;">Group Slogan: {{ group_slogan }}</p>
+        <p>Background Image URL: <a href="{{ image_url }}">{{ image_url }}</a></p>
+        
+    </div>
+
+</head>
+<center>
+	<font color="black" size="5" style="font-family: avenir">
+		
+		<br>
+
+		<h1 style="color: DodgerBlue">Employee Information</h1>
+
+	<!--	<body style="background-image: url('{{ background_image }}');" >   -->
+
+			<form>
+
+				<div>
+
+			  		Employee ID:<br> {{ id }} <br><br>
+
+			  		First Name:<br> {{ fname }} <br><br>
+
+			  		Last Name:<br> {{ lname }} <br><br>
+
+			  		Primary Interest:<br> {{ interest }} <br><br>
+
+			  		Location:<br> {{ location }} <br><br>
+			  		
+			  	</div>
+
+			</form>
+			<a href="{{ url_for('home') }}">Back</a>
+		</body>
+
+	</font>
+</center>
+</html>

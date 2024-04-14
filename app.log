@@ -1,0 +1,38 @@
+2024-04-13 21:39:22,507 -  * Debugger is active!
+2024-04-13 21:39:22,508 -  * Debugger PIN: 126-135-737
+2024-04-13 21:39:33,192 -  * Running on all addresses.
+   WARNING: This is a development server. Do not use it in a production deployment.
+2024-04-13 21:39:33,193 -  * Running on http://172.31.1.47:8080/ (Press CTRL+C to quit)
+2024-04-13 21:39:33,194 -  * Restarting with stat
+2024-04-13 21:39:33,610 -  * Debugger is active!
+2024-04-13 21:39:33,611 -  * Debugger PIN: 126-135-737
+2024-04-13 21:39:43,989 -  * Detected change in '/home/ec2-user/environment/Final-Project-Deployment-of-2-tiered-web-application-to-managed-K8s-cluster-on-Amazon-EKS/app.py', reloading
+2024-04-13 21:39:44,052 -  * Restarting with stat
+2024-04-13 21:39:44,435 -  * Debugger is active!
+2024-04-13 21:39:44,436 -  * Debugger PIN: 126-135-737
+2024-04-13 21:39:51,693 -  * Detected change in '/home/ec2-user/environment/Final-Project-Deployment-of-2-tiered-web-application-to-managed-K8s-cluster-on-Amazon-EKS/app.py', reloading
+2024-04-13 21:39:51,753 -  * Restarting with stat
+2024-04-13 21:39:52,092 -  * Debugger is active!
+2024-04-13 21:39:52,092 -  * Debugger PIN: 126-135-737
+2024-04-13 21:39:56,195 -  * Running on all addresses.
+   WARNING: This is a development server. Do not use it in a production deployment.
+2024-04-13 21:39:56,196 -  * Running on http://172.31.1.47:8080/ (Press CTRL+C to quit)
+2024-04-13 21:39:56,199 -  * Restarting with stat
+2024-04-13 21:39:56,642 -  * Debugger is active!
+2024-04-13 21:39:56,643 -  * Debugger PIN: 126-135-737
+2024-04-13 21:40:20,387 -  * Detected change in '/home/ec2-user/environment/Final-Project-Deployment-of-2-tiered-web-application-to-managed-K8s-cluster-on-Amazon-EKS/app.py', reloading
+2024-04-13 21:40:20,448 -  * Restarting with stat
+2024-04-13 21:40:20,807 -  * Debugger is active!
+2024-04-13 21:40:20,808 -  * Debugger PIN: 126-135-737
+2024-04-13 21:40:23,804 -  * Running on all addresses.
+   WARNING: This is a development server. Do not use it in a production deployment.
+2024-04-13 21:40:23,806 -  * Running on http://172.31.1.47:8080/ (Press CTRL+C to quit)
+2024-04-13 21:40:23,808 -  * Restarting with stat
+2024-04-13 21:40:24,175 -  * Debugger is active!
+2024-04-13 21:40:24,176 -  * Debugger PIN: 126-135-737
+2024-04-13 21:41:11,672 -  * Running on all addresses.
+   WARNING: This is a development server. Do not use it in a production deployment.
+2024-04-13 21:41:11,672 -  * Running on http://172.31.1.47:8080/ (Press CTRL+C to quit)
+2024-04-13 21:41:11,673 -  * Restarting with stat
+2024-04-13 21:41:12,063 -  * Debugger is active!
+2024-04-13 21:41:12,064 -  * Debugger PIN: 126-135-737
