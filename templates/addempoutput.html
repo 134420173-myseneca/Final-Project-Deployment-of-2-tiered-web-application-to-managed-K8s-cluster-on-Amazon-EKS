@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Add Emp Output</title>
+	
+	    <style>
+        body {
+            background-image: url("{{ background_image }}");
+            background-size: cover;
+            /* Other background properties */
+        }
+        .container {
+            color: #e4e4e4;
+            text-align: center;
+            height: 90px;
+            vertical-align: middle;
+        }
+    </style>
+       <div class="container">
+        <h1>Welcome to {{ group_name }} webpage</h1>
+        <p style="color: white; font-size: 1.2em; font-style: italic;">Group Slogan: {{ group_slogan }}</p>
+        <p>Background Image URL: <a href="{{ image_url }}">{{ image_url }}</a></p>
+        
+    </div>
+
+<center>
+	<font color="DodgerBlue" size="5" style="font-family: avenir">
+    <!--    <body style="background-image: url('{{ background_image }}');" >   -->
+			<h1>The employee {{ name }} was successfully added to the database</h1><br>
+			<h2>The Employee has been added to the database</h2><br>
+			<h2>{{ name }}</h2><br>
+			<title>Add Emp Output</title>
+			<a href="{{ url_for('home') }}">Back</a>
+		</body>
+	</font>
+</center>
+</head>
+<body>
+
+</body>
+</html>

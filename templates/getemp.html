@@ -1,0 +1,48 @@
+	<!DOCTYPE html>
+<html>
+<head>
+	<title>Get Employee Information </title>
+	
+	    <style>
+        body {
+            background-image: url("{{ background_image }}");
+            background-size: cover;
+            /* Other background properties */
+        }
+        .container {
+            color: #e4e4e4;
+            text-align: center;
+            height: 90px;
+            vertical-align: middle;
+        }
+    </style>
+       <div class="container">
+        <h1>Welcome to {{ group_name }} webpage</h1>
+        <p style="color: white; font-size: 1.2em; font-style: italic;">Group Slogan: {{ group_slogan }}</p>
+        <p>Background Image URL: <a href="{{ image_url }}">{{ image_url }}</a></p>
+        
+    </div>
+
+</head>
+<center>
+	<font color="black" size="5" style="font-family: avenir">
+<br>
+		<h1 style="color: white; font-size: 1.2em; font-style: italic;">Employee Information</h1>
+
+	<!--	<body style="background-image: url('{{ background_image }}');" >    -->
+
+			<form action="/fetchdata" autocomplete="on" method="POST">
+
+				<h2 style="color: white; font-size: 1.2em; font-style: italic;">Enter Employee ID</h2>
+
+		  	Employee ID:<br> <input style="height:25px;font-size:14pt;" type="number" name="emp_id" autofocus size="40"><br><br>
+
+
+		  		<button type="submit" style="background: grey; height: 45px; width: 200px; color: white; size: 5; font:oblique;">FETCH INFO</button><br><br>
+
+			</form>
+
+		</body>
+	</font>
+</center>
+</html>

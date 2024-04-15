@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Add Employee Information {{group_name}}</title>
+	    <style>
+        body {
+            background-image: url("{{ background_image }}");
+            background-size: cover;
+            /* Other background properties */
+        }
+   .container {
+            color: blue; /* Change text color to blue */
+            text-align: center;
+            height: 90px;
+            vertical-align: middle;
+        }
+        h1, p {
+            color: #e4e4e4;
+        }
+    </style>
+    
+        <div class="container">
+        <h1>Welcome to {{ group_name }} webpage</h1>
+        <p style="color: white; font-size: 1.2em; font-style: italic;">Group Slogan: {{ group_slogan }}</p>
+        <p>Background Image URL: <a href="{{ image_url }}">{{ image_url }}</a></p>
+        
+    </div>
+
+</head>
+<center>
+	<font color="black" size="4" style="font-family: avenir">
+<br>
+		<h1 style="color: white; font-size: 1.3em; font-style: italic;">Employee Database</h1>
+
+
+		 <form action="/addemp" autocomplete="on" method = "POST" enctype="multipart/form-data">
+
+			
+
+		  		Employee ID:<br> <input style="height:25px;font-size:14pt; color:grey;" type="number" name="emp_id" autofocus size="40"><br><br>
+
+		  		First Name:<br> <input style="height:25px;font-size:14pt;color:grey;" type="text" name="first_name" ><br><br>
+
+		  		Last Name:<br> <input style="height:25px;font-size:14pt;color:grey;" type="text" name="last_name"><br><br>
+
+		  		Primary Skills:<br> <input style="height:25px;font-size:14pt;color:grey;" type="text" name="primary_skill"><br><br>
+
+		  		Location:<br> <input style="height:25px;font-size:14pt;color:grey;" type="text" name="location"><br><br>
+
+		  		<button type="submit" style="background: grey; height: 45px; width: 200px; color: white; size: 5; font:oblique;">UPDATE DATABASE</button><br><br>
+		  		<button type="submit" formaction="/getemp" style="background: grey; height: 45px; width: 200px; color:white; font:oblique;">GET EMPLOYEE INFORMATION</button><br><br>
+
+			</form>
+			<br><br><br><br><br><br><br><br>
+            <a href="/about">About Us</a>
+</body>
+</html>
+
+
+
