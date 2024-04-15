@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: app
+  namespace: final
+data:
+  GROUP_NAME: "clo835-group9"
+  IMAGE_URL: "https://clo835-group9.s3.amazonaws.com/background_image.jpg"
+  IMAGE_FILE_NAME: "background_image.jpg"
+  GROUP_SLOGAN: "Anything can happen with a good team"   
