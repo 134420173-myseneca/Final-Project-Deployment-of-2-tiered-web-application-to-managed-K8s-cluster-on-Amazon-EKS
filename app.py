@@ -82,7 +82,7 @@ def download_background_image(bucket_name, image_file_name):
                 break
 
         if object_key:
-            local_filename = os.path.join("static", "background_image.png")
+            local_filename = os.path.join("static", "background_image.jpg")
             s3_client.download_file(bucket_name, object_key, local_filename)
             print("Background image downloaded successfully from S3.")
             # Added logging of background image location
